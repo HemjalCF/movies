@@ -1,0 +1,37 @@
+name: movies app
+
+on:
+  push:
+    branches:
+      - 'main'
+
+env:
+  SOURCE_DIR:   ${{ github.workspace }}/movies
+  QT_VERSION:   5.15.2
+
+jobs:
+  build:
+    runs-on:  ubuntu-22.04
+
+    steps:
+      - name: (1) Checkout repository
+        uses: actions/checkout@v2
+
+      - name: (2) Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version:      ${{ env.QT_VERSION }}
+          host: 'linux'
+          target: 'desktop'
+          arch: 'gcc_64'
+          modules: 'debug_info qtcharts qtdatavis3d'
+
+      - name: (3) Build and Compile
+        working-directory: ${{ env.SOURCE_DIR }}
+        run:  |
+              ls
+              sudo apt install qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools -y
+              qmake -r ${{ env.SOURCE_DIR }}/movies.pro
+              make
+              
+
