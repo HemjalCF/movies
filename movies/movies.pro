@@ -5,7 +5,9 @@ CONFIG -= qt
 
 SOURCES += \
         main.cpp \
-        movies.cpp
+        movies.cpp \
+        utilities.cpp
 
 HEADERS += \
-    movies.hh
+    movies.hh \
+    utilities.hh
