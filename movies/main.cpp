@@ -128,7 +128,18 @@ int main()
                 std::cout<<WRONG_PARAMETERS<<std::endl;
                 continue;
             }
-            movies.show_multiplex_halls(movies_ds);
+            else movies.show_multiplex_halls(movies_ds);
+        }
+        else if(command == "multiplex_of_movie")
+        {
+            if(parts.size()<2)
+            {
+                std::cout<<WRONG_PARAMETERS<<std::endl;
+                continue;
+            }
+            std::string movie_name = parts.at(1);
+            dout<<"Getting name of the multiplex of movie:"<<movie_name<<std::endl<<std::endl;
+            movies.get_multiplex_name_of_a_movie(movies_ds, movie_name);
         }
 
         else if(command == "quit")

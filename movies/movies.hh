@@ -27,6 +27,7 @@ public:
     typedef std::map<std::string,std::map<std::string,std::map<std::string,std::map<std::string,std::string>>>> movies_ds; //DS for theater app
     void show_multiplex(movies_ds movies_ds_tmp);
     void show_multiplex_halls(movies_ds movies_ds_tmp);
+    void get_multiplex_name_of_a_movie(movies_ds movies_ds_tmp,std::string movie_name );
 };
 
 #endif // MOVIES_HH
