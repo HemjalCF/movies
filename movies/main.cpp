@@ -1,7 +1,11 @@
 #include <iostream>
 #include <fstream>
+#include <set>
+#include <utility>
+#include <algorithm>
 #include "movies.hh"
 #include "utilities.hh"
+
 
 
 #define DEBUG
@@ -12,6 +16,7 @@
 #define dout 0 && std::cout
 #endif
 
+
 int main()
 {
     std::cout << "Welcome to the movies!" << std::endl;
@@ -19,7 +24,9 @@ int main()
     std::cout << "----------------------" << std::endl;
     std::cout << std::endl << std::endl;
     std::map<std::string,std::map<std::string,std::map<std::string,std::map<std::string,std::string>>>> movies_ds; //DS for theater app
+
     Utilities utilities;
+    Movies movies;
     std::string stored_filename = " ";
 #ifdef DEBUG
     stored_filename = "t.txt";
@@ -96,6 +103,44 @@ int main()
     }
     utilities.print_map(movies_ds);
     file_object.close();
-    dout<<std::endl<<"*********  Data struct saved   *********"<<std::endl<<std::endl;
+    dout<<std::endl<<"*********  Data structure saved   *********"<<std::endl<<std::endl;
+    while(1)
+    {
+        std::string line;
+        std::cout << "the> ";
+        getline(std::cin, line);
+        std::vector<std::string> parts = utilities.split(line, ' ');
+        if(parts.size() == 0)   // Allowing empty inputs
+        {
+            continue;
+        }
+
+        std::string command = parts.at(0);
+
+        if(command == "multiplex")
+        {
+            movies.show_multiplex(movies_ds);
+        }
+        else if(command == "auditorium")
+        {
+            if(parts.size()>1)
+            {
+                std::cout<<WRONG_PARAMETERS<<std::endl;
+                continue;
+            }
+            movies.show_multiplex_halls(movies_ds);
+        }
+
+        else if(command == "quit")
+        {
+            return EXIT_SUCCESS;
+
+        }
+        else
+        {
+            std::cout<<COMMAND_NOT_FOUND<<std::endl;
+        }
+    }
+
     return 0;
 }

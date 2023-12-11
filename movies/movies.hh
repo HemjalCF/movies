@@ -1,6 +1,10 @@
 #ifndef MOVIES_HH
 #define MOVIES_HH
 #include <string>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <map>
 
 const std::string PROMPT = "movies> ";
 
@@ -20,6 +24,9 @@ class Movies
 {
 public:
     Movies();
+    typedef std::map<std::string,std::map<std::string,std::map<std::string,std::map<std::string,std::string>>>> movies_ds; //DS for theater app
+    void show_multiplex(movies_ds movies_ds_tmp);
+    void show_multiplex_halls(movies_ds movies_ds_tmp);
 };
 
 #endif // MOVIES_HH
