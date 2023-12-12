@@ -114,7 +114,6 @@ int main()
         {
             continue;
         }
-
         std::string command = parts.at(0);
 
         if(command == "multiplex")
@@ -130,22 +129,33 @@ int main()
             }
             else movies.show_multiplex_halls(movies_ds);
         }
-        else if(command == "multiplex_of_movie")
+        else if(command == "multiplex_of_auditorium")
         {
             if(parts.size()<2)
             {
                 std::cout<<WRONG_PARAMETERS<<std::endl;
                 continue;
             }
-            std::string movie_name = parts.at(1);
-            dout<<"Getting name of the multiplex of movie:"<<movie_name<<std::endl<<std::endl;
-            movies.get_multiplex_name_of_a_movie(movies_ds, movie_name);
+            std::string auditorium_name = parts.at(1);
+            dout<<"Getting name of the multiplex of auditorium:"<<auditorium_name<<std::endl<<std::endl;
+            movies.get_multiplex_name_of_a_auditorium(movies_ds, auditorium_name);
+        }
+
+        else if(command == "movies_in_city")
+        {
+            if(parts.size() !=2)
+            {
+                std::cout<<WRONG_PARAMETERS<<std::endl;
+                continue;
+            }
+            std::string movies_in_city = parts.at(1);
+            dout<<"Getting movies in City: "<<movies_in_city<<std::endl<<std::endl;
+            movies.get_movies_name_in_a_city(movies_ds,movies_in_city);
         }
 
         else if(command == "quit")
         {
             return EXIT_SUCCESS;
-
         }
         else
         {
