@@ -17,7 +17,7 @@ int main()
     std::cout << "----------------------" << std::endl;
     std::cout << "----------------------" << std::endl;
     std::cout << std::endl << std::endl;
-    std::map<std::string,std::map<std::string,std::map<std::string,std::map<std::string,std::string>>>> movies_ds; //DS for theater app
+    std::map<std::string,std::map<std::string,std::map<std::string,std::map<std::string,std::string>>>> movies_ds; //Data struct for movies app
 
     Utilities utilities;
     Movies movies;
