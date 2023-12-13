@@ -54,9 +54,14 @@ Rajshahi
 | multiplex             | Name of the multiplexes           |  multiplex    |
 | auditorium            | Name of the auditoriums           |  auditorium   |
 | multiplex_of_auditorium* | ------------------------       |               |
-| movies                | Movies currently showing          |  movies       |
-| movies_of_the_Hall*   | movies in a particular Hall       |
+| movies                | Movies currently showing          |  movies  **   |
+| movies_of_the_Hall*   | movies in a particular Hall       | **            |
 | multiplex_of_movie*   | Movies in a particular cineplex   | ... Conan     | 
-| movies_in_a_city*     | Movies in a particular city       |
-| free_tickets*         | Free tickets available            |
-| **anything**          | Unknown Command                   |
+| movies_in_a_city*     | Movies in a particular city       |... Dhaka      |
+| free_tickets*         | Free tickets available            | **            |
+| **anything**          | Unknown Command                   |               |
+
+
+(*) Requires two parameters 
+
+(**) Not implemented yet
