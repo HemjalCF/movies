@@ -1,0 +1,12 @@
+Dhaka;Blcokbusters;Rockers;Love and War;50
+Dhaka;Blcokbusters;Poppers;Logan;5
+Dhaka;Blcokbusters;Rockers;Spartacus;none
+Dhaka;Blcokbusters;Poppers;The Godfather;40
+Dhaka;Blcokbusters;Poppers;The Departed;90
+Dhaka;Blcokbusters;The Grand Dhaka;Conan;20
+Dhaka;Blcokbusters;The Grand Dhaka;Barbarians;none
+Rajshahi;Raj movies;The Grand Raj HAll;Gladiator;7
+Rajshahi;Raj movies;The Grand Raj HAll;Crash;34
+Rajshahi;Raj movies;The Grand Raj HAll;Gold Digger;2
+Rajshahi;Raj movies;The Padma Hall;Friday;2
+Rajshahi;Raj movies;The Padma Hall;Titanic;3

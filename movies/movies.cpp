@@ -1,15 +1,104 @@
 #include "movies.hh"
-#include "utilities.hh"
-#include <utility>
-#include <algorithm>
-#include <set>
 
 static bool compareFunction (std::string a, std::string b) {return a<b;}   // should return string compared
-Utilities utilities;
 
 Movies::Movies()
 {
 
+}
+
+Movies::movies_ds_t Movies::read_saved_movies_data(std::string file_name)
+{
+    movies_ds_t movies_ds;
+    std::ifstream file_object(file_name);
+
+    if ( not file_object ) {
+        std::cout << FILE_ERROR << std::endl;
+        return movies_ds;
+    }
+
+    std::string line;
+    std::vector<std::string> line_strs;
+    int line_number = 1;
+    size_t i = 0;
+
+    while ( getline(file_object, line) ) {
+        // dout<<"Parsing line ["<<line_number<<"]: "<<line<<std::endl;
+        line_strs = utilities.split(line, ';');
+        for (i = 0; i < line_strs.size(); i++) {
+           // std::cout << line_strs[i] << " ";
+        }
+       // std::cout<<std::endl;
+
+        if(line_strs.size()!=5 )
+        {
+            std::cout<<EMPTY_FIELD<<line_number<<std::endl;
+            return movies_ds;
+        }
+
+        for (auto i = line_strs.begin(); i != line_strs.end(); i++) {
+            std::string buf = *i;
+            if(buf.find_first_not_of(' ') != std::string::npos)
+            {
+
+            } else
+            {
+                std::cout<<EMPTY_FIELD<<line_number<<std::endl;
+                return movies_ds;
+            }
+        }
+
+        line_number++;
+
+        if(auto search = movies_ds.find(line_strs[0]); search !=movies_ds.end()){
+           // std::cout<<"Found city: "<<line_strs[0];
+            std::map<std::string,std::map<std::string,std::map<std::string,std::string>>> tmp = search->second;
+            if(auto search2 = tmp.find(line_strs[1]); search2 !=tmp.end()){
+                //std::cout<<"  : Cinema Hall : "<<line_strs[1];
+                std::map<std::string,std::map<std::string,std::string>> tmp2 = search2->second;
+                if(auto search3 = tmp2.find(line_strs[2]); search3 !=tmp2.end()){
+                   // std::cout<<"  : Movie : "<<line_strs[2]<<std::endl;
+                    std::map<std::string,std::string> tmp3 = search3->second;
+                    tmp3[line_strs[3]] = line_strs[4];
+                    movies_ds[line_strs[0]][line_strs[1]][line_strs[2]]=tmp3;
+                }
+                else{
+                    tmp2[line_strs[2]][line_strs[3]] = line_strs[4];
+                    movies_ds[line_strs[0]][line_strs[1]]=tmp2;
+                }
+            }
+            else{
+                tmp[line_strs[1]][line_strs[2]][line_strs[3]] = line_strs[4];
+                movies_ds[line_strs[0]]=tmp;
+            }
+        }
+        else
+        {
+            movies_ds[line_strs[0]][line_strs[1]][line_strs[2]][line_strs[3]] = line_strs[4];
+        }
+    }
+    file_object.close();
+    return movies_ds;
+}
+
+void Movies::print_movies_ds(movies_ds_t movies_ds)
+{
+    for (auto it1 = movies_ds.begin(); it1 != movies_ds.end(); it1++) {
+        std::cout<<it1->first<<std::endl;
+        auto m1 = it1->second;
+        for (auto it2 = m1.begin(); it2 != m1.end(); it2++) {
+            std::cout<<"\t"<<it2->first<<std::endl;
+            auto m2 = it2->second;
+            for (auto it3 = m2.begin(); it3 != m2.end(); it3++) {
+                std::cout<<"\t\t"<<it3->first<<std::endl;
+                auto m3 = it3->second;
+                for (auto it4 = m3.begin(); it4 != m3.end(); it4++) {
+                    std::cout<<"\t\t\t"<<it4->first<<" ";
+                    std::cout<<"\t\t\t"<<it4->second<<std::endl;
+                }
+            }
+        }
+    }
 }
 
 void Movies::show_multiplex(movies_ds_t movies_ds_tmp)
@@ -73,7 +162,6 @@ void Movies::get_multiplex_name_of_a_auditorium(movies_ds_t movies_ds_tmp, std::
 
     }
     if(not found_target_multiplex)  std::cout<<Auditorium_NOT_FOUND<<std::endl;
-
 }
 
 void Movies::get_movies_name_in_a_city(movies_ds_t movies_ds_tmp, std::string city_name)
@@ -115,5 +203,4 @@ void Movies::get_movies_name_in_a_city(movies_ds_t movies_ds_tmp, std::string ci
         }
     }
     if(not found)  std::cout<< CITY_NOT_FOUND <<std::endl;
-
 }
